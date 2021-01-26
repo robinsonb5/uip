@@ -1,4 +1,6 @@
-#define DEBUG_PRINTF(...) /*printf(__VA_ARGS__)*/
+/* AMR - VBCC can't cope with varargs macros... */
+#define DEBUG_PRINTF(x,y) /*printf(x,y)*/
+#define DEBUG_PRINTF2(x,y,z) /*printf(x,y,z)*/
 
 /**
  * \defgroup uip The uIP TCP/IP stack
@@ -1865,7 +1867,7 @@ uip_process(u8_t flag)
    
   UIP_STAT(++uip_stat.tcp.sent);
  send:
-  DEBUG_PRINTF("Sending packet with length %d (%d)\n", uip_len,
+  DEBUG_PRINTF2("Sending packet with length %d (%d)\n", uip_len,
 	       (BUF->len[0] << 8) | BUF->len[1]);
   
   UIP_STAT(++uip_stat.ip.sent);
