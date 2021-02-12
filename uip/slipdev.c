@@ -2,6 +2,7 @@
  * \addtogroup uip
  * @{
  */
+#include <hw/uart.h>
 
 /**
  * \defgroup slip Serial Line IP (SLIP) protocol
@@ -139,7 +140,7 @@ slipdev_poll(void)
 {
   u8_t c;
   
-  while(slipdev_char_poll(c)) {
+  while(slipdev_char_poll(&c)) {
     switch(c) {
     case SLIP_ESC:
       lastc = c;
@@ -152,6 +153,7 @@ slipdev_poll(void)
       memcpy(uip_buf, slip_buf, len);
       tmplen = len;
       len = 0;
+
       return tmplen;
       
     default:     
